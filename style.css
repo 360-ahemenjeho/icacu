@@ -1,0 +1,118 @@
+:root {
+  /* colors */
+  --gray-primary: #1a1a1a;
+  --gray-secondary: #333333;
+  --gray-tertiary: #4d4d4d;
+  --gray-quartenary: #999999;
+  --success: #117b2f;
+  --warning: #bf7f33;
+  --danger: #ff5e5e;
+  --info: #8aa1fd;
+
+  /* font */
+  --font-primary: 'Poppins';
+}
+
+* {
+  font-family: var(--font-primary);
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--gray-tertiary);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+p {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  height: 60px;
+  width: 80px;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 12px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#calculator {
+  background-color: var(--gray-primary);
+  border-radius: 24px;
+  width: fit-content;
+  padding: 24px 12px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.digit {
+  background-color: var(--gray-secondary);
+  color: var(--gray-quartenary);
+}
+
+.operator {
+  background-color: var(--gray-tertiary);
+  color: var(--gray-quartenary);
+}
+
+.clear {
+  background-color: var(--danger);
+  color: #ffffff;
+}
+
+.bsp {
+  background-color: var(--warning);
+  color: var(--gray-primary);
+}
+
+.equal {
+  background-color: var(--success);
+  color: #ffffff;
+}
+
+#result {
+  font-size: 32px;
+  color: #ffffff;
+  text-align: right;
+}
+
+#history {
+  font-size: 14px;
+  color: var(--gray-quartenary);
+  text-align: right;
+}
+
+#history span {
+  color: var(--info);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
