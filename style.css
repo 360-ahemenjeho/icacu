@@ -85,7 +85,7 @@ button {
   color: #ffffff;
 }
 
-.bsp {
+.delete {
   background-color: var(--warning);
   color: var(--gray-primary);
 }
@@ -95,23 +95,23 @@ button {
   color: #ffffff;
 }
 
-#result {
+#current {
   font-size: 32px;
   color: #ffffff;
   text-align: right;
 }
 
-#history {
+#previous {
   font-size: 14px;
   color: var(--gray-quartenary);
   text-align: right;
 }
 
-#history span {
+#previous span {
   color: var(--info);
 }
 
-.screen {
+.display {
   display: flex;
   flex-direction: column;
   gap: 6px;
