@@ -116,3 +116,21 @@ button {
   flex-direction: column;
   gap: 6px;
 }
+
+.err {
+  color: var(--danger) !important;
+  animation: err 0.35s ease-in-out;
+  transition: transform 0.35s ease-in-out, color 0.35s ease-in-out;
+}
+
+@keyframes err {
+  0% {
+    transform: translateX(-8px);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
