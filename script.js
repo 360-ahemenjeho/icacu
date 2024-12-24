@@ -7,11 +7,15 @@ let current = ''
 let previous = ''
 let operator = ''
 
+const MAX_DIGITS = 17
+
+function renderPrevious(previous, operator) {
+  return `<p>${previous} <span>${operator}</span></p>`
+}
+
 btnsContainer.addEventListener('click', function (event) {
   if (event.target.classList.contains('digit')) {
     const digit = event.target.textContent
-
-    console.log('Current:', current)
     if (current?.includes('.') && digit === '.') return
     if ((current === '0' && digit !== '.') || current === '') {
       current = digit
@@ -26,13 +30,38 @@ btnsContainer.addEventListener('click', function (event) {
     operator = event.target.textContent
     previous = current
     current = ''
-    previousEl.innerHTML = `<p>${previous} <span>${operator}</span></p>`
+    previousEl.innerHTML = renderPrevious(previous, operator)
+
+    const notTwoOperators = !current || !previous || isNaN(previous) || isNaN(current)
 
     if (operator === '+') {
-      if (isNaN(Number(previous)) || isNaN(Number(current))) return
-      current = String(parseFloat(previous) + parseFloat(current))
+      if (notTwoOperators) return
+      current = parseFloat(previous) + parseFloat(current)
     }
-    currentEl.textContent = current || previous
+
+    if (operator === '-') {
+      if (notTwoOperators) return
+      current = parseFloat(previous) - parseFloat(current)
+    }
+
+    if (operator === '/') {
+      if (notTwoOperators) return
+      if (current < 1 || previous < 1) return
+      current = parseFloat(previous) / parseFloat(current)
+    }
+
+    if (operator === '*') {
+      if (notTwoOperators) return
+      current = parseFloat(previous) * parseFloat(current)
+    }
+
+    if (operator === '%') {
+      if (notTwoOperators) return
+      if (current < previous) return
+      current = parseFloat(previous) % parseFloat(current)
+    }
+
+    currentEl.textContent = current ?? previous
   }
 
   if (event.target.classList.contains('equal')) {
@@ -47,8 +76,8 @@ btnsContainer.addEventListener('click', function (event) {
     }
 
     currentEl.textContent = current
-    previous = ''
-    previousEl.textContent = previous
+    previousEl.innerHTML = renderPrevious(previous, operator)
+    previous = current
   }
 
   if (event.target.classList.contains('clear')) {
