@@ -6,6 +6,7 @@ const btnsContainer = document.querySelector('#btns')
 let current = ''
 let previous = ''
 let operator = ''
+let isFirstOperation = true
 
 const MAX_DIGITS = 16
 const MAX_ERR_DURATION = 500
@@ -15,9 +16,9 @@ function renderPrevious(previous, operator) {
 }
 
 function throwDisplayError() {
-  currentEl.classList.add('err')
+  currentEl.classList.add('error')
   setTimeout(() => {
-    currentEl.classList.remove('err')
+    currentEl.classList.remove('error')
   }, MAX_ERR_DURATION)
 }
 
@@ -46,18 +47,26 @@ btnsContainer.addEventListener('click', function (event) {
 
   if (event.target.classList.contains('operator')) {
     operator = event.target.textContent
-    previous = current
-    current = ''
-    previousEl.innerHTML = renderPrevious(previous, operator)
 
-    const notTwoOperators = !current || !previous || isNaN(previous) || isNaN(current)
+    if (isFirstOperation) {
+      previous = current
+      previousEl.innerHTML = renderPrevious(previous, operator)
+      currentEl.textContent = current
+      current = ''
+      isFirstOperation = false
+      return
+    }
+
+    previousEl.innerHTML = renderPrevious(previous, operator)
+    const operandsNotSet = isNaN(previous) || isNaN(current)
 
     if (operator === '+') {
-      if (notTwoOperators) return
+      if (operandsNotSet) return
       current = parseFloat(previous) + parseFloat(current)
     }
 
-    currentEl.textContent = current ?? previous
+    previous = current
+    currentEl.textContent = current
   }
 
   if (event.target.classList.contains('equal')) {

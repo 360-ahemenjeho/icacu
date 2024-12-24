@@ -117,13 +117,13 @@ button {
   gap: 6px;
 }
 
-.err {
+.error {
   color: var(--danger) !important;
-  animation: err 0.35s ease-in-out;
+  animation: error 0.35s ease-in-out;
   transition: transform 0.35s ease-in-out, color 0.35s ease-in-out;
 }
 
-@keyframes err {
+@keyframes error {
   0% {
     transform: translateX(-8px);
   }
