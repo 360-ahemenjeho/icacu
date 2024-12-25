@@ -54,19 +54,20 @@ btnsContainer.addEventListener('click', function (event) {
       currentEl.textContent = current
       current = ''
       isFirstOperation = false
-      return
+    } else {
+      previousEl.innerHTML = renderPrevious(previous, operator)
+      const operandsNotSet = isNaN(previous) || isNaN(current)
+
+      if (operator === '+') {
+        if (operandsNotSet) return
+        current = String(parseFloat(previous) + parseFloat(current))
+      }
+
+      previous = current
+      current = ''
+      currentEl.textContent = previous
+      isFirstOperation = true
     }
-
-    previousEl.innerHTML = renderPrevious(previous, operator)
-    const operandsNotSet = isNaN(previous) || isNaN(current)
-
-    if (operator === '+') {
-      if (operandsNotSet) return
-      current = parseFloat(previous) + parseFloat(current)
-    }
-
-    previous = current
-    currentEl.textContent = current
   }
 
   if (event.target.classList.contains('equal')) {
