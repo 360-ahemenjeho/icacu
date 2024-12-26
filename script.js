@@ -7,6 +7,7 @@ let current = ''
 let previous = ''
 let operator = ''
 let isFirstOperation = true
+let operationCount = 1
 
 const MAX_DIGITS = 16
 const MAX_ERR_DURATION = 500
@@ -49,13 +50,14 @@ btnsContainer.addEventListener('click', function (event) {
     operator = event.target.textContent
 
     if (isFirstOperation) {
-      previous = current
+      if (operationCount === 3) {
+        if (operator === '+') previous = parseFloat(previous) + parseFloat(current)
+      } else previous = current
+
       previousEl.innerHTML = renderPrevious(previous, operator)
       currentEl.textContent = current
-      current = ''
       isFirstOperation = false
     } else {
-      previousEl.innerHTML = renderPrevious(previous, operator)
       const operandsNotSet = isNaN(previous) || isNaN(current)
 
       if (operator === '+') {
@@ -64,10 +66,13 @@ btnsContainer.addEventListener('click', function (event) {
       }
 
       previous = current
-      current = ''
       currentEl.textContent = previous
+      previousEl.innerHTML = renderPrevious(previous, operator)
       isFirstOperation = true
     }
+
+    current = ''
+    if (operationCount < 3) operationCount++
   }
 
   if (event.target.classList.contains('equal')) {
@@ -78,6 +83,8 @@ btnsContainer.addEventListener('click', function (event) {
     current = '0'
     previous = ''
     operator = ''
+    operationCount = 1
+    isFirstOperation = true
     currentEl.textContent = current
     previousEl.textContent = previous
   }
