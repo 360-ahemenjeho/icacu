@@ -49,38 +49,41 @@ btnsContainer.addEventListener('click', function (event) {
 
   if (event.target.classList.contains('operator')) {
     operator = event.target.textContent
+    console.log('operator', operator, 'previousOperator', previousOperator, 'current', current, 'previous', previous)
 
     if (isFirstOperation) {
       if (operationCount === 3) {
-        if (operator === '+') previous = parseFloat(previous) + parseFloat(current)
-        if (operator === '-') previous = parseFloat(previous) - parseFloat(current)
-        if (operator === '*') previous = parseFloat(previous) * parseFloat(current)
+        if (previousOperator === '+') previous = parseFloat(previous) + parseFloat(current)
+        if (previousOperator === '-') previous = parseFloat(previous) - parseFloat(current)
+        if (previousOperator === '*') previous = parseFloat(previous) * parseFloat(current)
       } else previous = current
 
       previousEl.innerHTML = renderPrevious(previous, operator)
       currentEl.textContent = current
+      previousOperator = operator
       isFirstOperation = false
     } else {
       const operandsNotSet = isNaN(previous) || isNaN(current)
 
-      if (operator === '+') {
-        if (operandsNotSet) return
+      if (previousOperator === '+') {
+        if (operandsNotSet) current = '0'
         current = String(parseFloat(previous) + parseFloat(current))
       }
 
-      if (operator === '-') {
-        if (operandsNotSet) return
+      if (previousOperator === '-') {
+        if (operandsNotSet) current = '0'
         current = String(parseFloat(previous) - parseFloat(current))
       }
 
-      if (operator === '-') {
-        if (operandsNotSet) return
+      if (previousOperator === '*') {
+        if (operandsNotSet) current = '0'
         current = String(parseFloat(previous) * parseFloat(current))
       }
 
       previous = current
       currentEl.textContent = previous
       previousEl.innerHTML = renderPrevious(previous, operator)
+      previousOperator = operator
       isFirstOperation = true
     }
 
@@ -89,7 +92,7 @@ btnsContainer.addEventListener('click', function (event) {
   }
 
   if (event.target.classList.contains('equal')) {
-    // handle equal to here.
+    // handle equal to here...
   }
 
   if (event.target.classList.contains('clear')) {
