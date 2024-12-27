@@ -8,6 +8,7 @@ let previous = ''
 let operator = ''
 let isFirstOperation = true
 let operationCount = 1
+let previousOperator = ''
 
 const MAX_DIGITS = 16
 const MAX_ERR_DURATION = 500
@@ -52,6 +53,8 @@ btnsContainer.addEventListener('click', function (event) {
     if (isFirstOperation) {
       if (operationCount === 3) {
         if (operator === '+') previous = parseFloat(previous) + parseFloat(current)
+        if (operator === '-') previous = parseFloat(previous) - parseFloat(current)
+        if (operator === '*') previous = parseFloat(previous) * parseFloat(current)
       } else previous = current
 
       previousEl.innerHTML = renderPrevious(previous, operator)
@@ -63,6 +66,16 @@ btnsContainer.addEventListener('click', function (event) {
       if (operator === '+') {
         if (operandsNotSet) return
         current = String(parseFloat(previous) + parseFloat(current))
+      }
+
+      if (operator === '-') {
+        if (operandsNotSet) return
+        current = String(parseFloat(previous) - parseFloat(current))
+      }
+
+      if (operator === '-') {
+        if (operandsNotSet) return
+        current = String(parseFloat(previous) * parseFloat(current))
       }
 
       previous = current
